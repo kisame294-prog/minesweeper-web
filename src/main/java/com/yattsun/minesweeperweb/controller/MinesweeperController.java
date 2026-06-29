@@ -1,0 +1,61 @@
+package com.yattsun.minesweeperweb.controller;
+
+import com.yattsun.minesweeperweb.domain.Board;
+import jakarta.servlet.http.HttpSession;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+@Controller
+public class MinesweeperController {
+
+    private Board getBoard(HttpSession session){
+        Board board = (Board) session.getAttribute("board");
+
+        if(board == null){
+            board = new Board(9,9);
+            session.setAttribute("board",board);
+        }
+
+        return board;
+    }
+
+    @GetMapping("/")
+    public String index(HttpSession session, Model model) {
+        Board board = getBoard(session);
+
+        model.addAttribute("board", board);
+        model.addAttribute("gameOver", board.isGameOver());
+        model.addAttribute("isClear",board.isClear());
+
+        return "index";
+    }
+
+    @GetMapping("/open")
+    public String open(@RequestParam int y,
+                       @RequestParam int x,
+                       HttpSession session){
+
+        Board board = getBoard(session);
+        board.init(y,x);
+
+        if(!board.isGameOver()){
+            board.openBoard(y,x);
+        }
+
+        return "redirect:/";
+    }
+
+    @GetMapping("/flag")
+    public String flag(@RequestParam int y,
+                       @RequestParam int x,
+                       HttpSession session){
+
+        Board board = getBoard(session);
+        board.toggleFlag(y, x);
+
+        return "redirect:/";
+    }
+
+}

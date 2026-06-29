@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>Minesweeper</title>
+</head>
+<body>
+    <h1>マインスイーパー開始!</h1>
+    <p>高さ:<span th:text="${board.height}"></span></p>
+    <p>幅:<span th:text="${board.width}"></span></p>
+    <table border="1">
+        <tr th:each="row, yStat : ${board.visibleBoard}">
+            <td th:each="cell, xStat : ${row}">
+                <a th:href="@{/open(y=${yStat.index}, x=${xStat.index})}">
+                    <span th:text="${cell}"></span>
+                </a>
+                <a th:href="@{/flag(y=${yStat.index}, x=${xStat.index})}">
+                    🚩
+                </a>
+            </td>
+        </tr>
+    </table>
+    <div th:if="${gameOver}">
+        <h2>💥　GAME OVER</h2>
+    </div>
+    <div th:if="${isClear}">
+        <h2>🎊  CLEAR!</h2>
+    </div>
+</body>
+</html>

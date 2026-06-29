@@ -1,0 +1,181 @@
+package com.yattsun.minesweeperweb.domain;
+
+import java.util.Random;
+
+public  class Board {
+
+    private final int[][] board;
+    private final char[][] visible;
+    private boolean initialized = false;
+    private boolean gameOver = false;
+
+    public int getHeight() {
+        return board.length;
+    }
+
+    public int getWidth() {
+        return board[0].length;
+    }
+
+    public Board(int sizeY, int sizeX) {
+        board = new int[sizeY][sizeX];
+        visible = new char[sizeY][sizeX];
+
+        for (int y = 0; y < board.length; y++) {
+            for (int x = 0; x < board[y].length; x++) {
+                visible[y][x] = '□';
+            }
+        }
+    }
+
+    //爆弾の数を選択
+    public void putBombs(int bombNum, int safeY, int safeX) {
+        var rand = new Random();
+        int count = 0;
+        while (count < bombNum) {
+            int y = rand.nextInt(board.length);
+            int x = rand.nextInt(board[0].length);
+            /*ランダムに置いた爆弾の座標が被らないように、かつ
+            　最初に指定した座標が爆弾ではない
+            */
+            if (board[y][x] != 9 && !(y == safeY && x == safeX)) {
+                board[y][x] = 9;
+                count++;
+            }
+        }
+    }
+
+    //周囲の爆弾の数
+    public void calcBombs() {
+        for (int y = 0; y < board.length; y++) {
+            for (int x = 0; x < board[y].length; x++) {
+                //爆弾を見つけたら
+                if (board[y][x] == 9) {
+                    //周囲8マスを見る(8マスは-1~1で表せる)
+                    for (int dy = -1; dy <= 1; dy++) {
+                        for (int dx = -1; dx <= 1; dx++) {
+                            int ny = y + dy;
+                            int nx = x + dx;
+                            //範囲内か確認
+                            if (ny >= 0 && ny < board.length &&
+                                    nx >= 0 && nx < board[0].length) {
+                                //爆弾じゃなければ+1
+                                if (board[ny][nx] != 9) {
+                                    board[ny][nx]++;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    //初期化メソッド
+    public void init(int safeY, int safeX){
+        if(initialized){
+            return;
+        }
+
+        putBombs(10,safeY,safeX);
+        calcBombs();
+        initialized = true;
+    }
+
+    public void showBombs() {
+        for (int y = 0; y < board.length; y++) {
+            for (int x = 0; x < board[y].length; x++) {
+                if (board[y][x] == 9) {
+                    visible[y][x] = '*';
+                }
+            }
+        }
+    }
+
+    //デバッグ用
+    public void printBoard() {
+        for (int[] row : board) {
+            for (int col : row) {
+                //System.out.print(col + " ");
+            }
+            //System.out.println();
+        }
+    }
+
+    public void openBoard(int y, int x) {
+        int value = board[y][x];
+        //すでに開いているマスなら何もしない
+        if (visible[y][x] != '□') {
+            return;
+        }
+
+        if (value == 9) {
+            visible[y][x] = '*';
+            gameOver = true;
+            return;
+        }
+        //int型をchar型に変換
+        visible[y][x] = (char) ('0' + value);
+        //0のマスを開いて、隣接したマスも0、更にその隣も0であれば連鎖的に開いていく
+        if (value == 0) {
+            for (int dy = -1; dy <= 1; dy++) {
+                for (int dx = -1; dx <= 1; dx++) {
+
+                    int ny = y + dy;
+                    int nx = x + dx;
+
+                    if (ny >= 0 && ny < board.length &&
+                            nx >= 0 && nx < board[0].length) {
+                        openBoard(ny, nx);
+                    }
+                }
+            }
+        }
+    }
+
+    //ユーザーから見た盤面
+    public void printVisible() {
+        for (int y = 0; y < board.length; y++) {
+            for (int x = 0; x < board[y].length; x++) {
+                //System.out.print(visible[y][x] + " ");
+            }
+            //System.out.println();
+        }
+    }
+
+    public char getVisible(int y, int x) {
+        return visible[y][x];
+    }
+
+    //フラグの入れ替え
+    public void toggleFlag(int y, int x) {
+        if (visible[y][x] == '□') {
+            visible[y][x] = 'F';
+        } else if (visible[y][x] == 'F') {
+            visible[y][x] = '□';
+        }
+    }
+
+    public boolean isBomb(int y, int x) {
+        return board[y][x] == 9;
+    }
+
+    public boolean isClear() {
+        for (int y = 0; y < board.length; y++) {
+            for (int x = 0; x < board[y].length; x++) {
+                if (board[y][x] != 9 && visible[y][x] == '□') {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public boolean isGameOver(){
+        return gameOver;
+    }
+
+    public char[][] getVisibleBoard() {
+        return visible;
+    }
+
+}
