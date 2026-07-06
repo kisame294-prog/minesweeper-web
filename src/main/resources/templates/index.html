@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<html  lang="ja">
 <head>
     <meta charset="UTF-8">
     <title>マインスイーパー（Board準拠版）</title>
@@ -16,36 +16,36 @@
         <tr th:each="row, yStat : ${board.visibleBoard}">
             <td th:each="cell, xStat : ${row}">
 
-                <!-- 閉じている -->
-                <form th:if="${board.isClosed(yStat.index, xStat.index)}"
+                <!-- 未開 -->
+                <form th:if="${cell == '□'}"
                       th:action="@{/open}"
                       method="post">
 
                     <input type="hidden" name="y" th:value="${yStat.index}">
                     <input type="hidden" name="x" th:value="${xStat.index}">
 
-                    <button type="submit" class="cell closed"></button>
+                    <button class="cell closed"></button>
 
                 </form>
 
                 <!-- フラグ -->
-                <form th:if="${board.isFlag(yStat.index, xStat.index)}"
+                <form th:if="${cell == 'F'}"
                       th:action="@{/flag}"
                       method="post">
 
                     <input type="hidden" name="y" th:value="${yStat.index}">
                     <input type="hidden" name="x" th:value="${xStat.index}">
 
-                    <button type="submit" class="cell flag">🚩</button>
+                    <button class="cell flag">🚩</button>
 
                 </form>
 
                 <!-- 開いたマス -->
-                <div th:if="${!board.isClosed(yStat.index, xStat.index) && !board.isFlag(yStat.index, xStat.index)}"
+                <div th:if="${cell != '□' && cell != 'F'}"
                      class="cell opened"
-                     th:classappend="${board.isMineVisible(yStat.index, xStat.index)} ? ' mine' : ''">
+                     th:classappend="${cell == '*'} ? ' mine' : ''">
 
-                    <span th:text="${board.getDisplayValue(yStat.index, xStat.index)}"></span>
+                    <span th:text="${cell == '0' ? '' : cell}"></span>
 
                 </div>
 
