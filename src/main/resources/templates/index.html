@@ -1,30 +1,61 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>Minesweeper</title>
+    <title>マインスイーパー（Board準拠版）</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
+
 <body>
-    <h1>マインスイーパー開始!</h1>
-    <p>高さ:<span th:text="${board.height}"></span></p>
-    <p>幅:<span th:text="${board.width}"></span></p>
-    <table border="1">
+
+<h2 class="title">MINESWEEPER</h2>
+
+<div class="board-frame">
+
+    <table class="board">
         <tr th:each="row, yStat : ${board.visibleBoard}">
             <td th:each="cell, xStat : ${row}">
-                <a th:href="@{/open(y=${yStat.index}, x=${xStat.index})}">
-                    <span th:text="${cell}"></span>
-                </a>
-                <a th:href="@{/flag(y=${yStat.index}, x=${xStat.index})}">
-                    🚩
-                </a>
+
+                <!-- 閉じている -->
+                <form th:if="${board.isClosed(yStat.index, xStat.index)}"
+                      th:action="@{/open}"
+                      method="post">
+
+                    <input type="hidden" name="y" th:value="${yStat.index}">
+                    <input type="hidden" name="x" th:value="${xStat.index}">
+
+                    <button type="submit" class="cell closed"></button>
+
+                </form>
+
+                <!-- フラグ -->
+                <form th:if="${board.isFlag(yStat.index, xStat.index)}"
+                      th:action="@{/flag}"
+                      method="post">
+
+                    <input type="hidden" name="y" th:value="${yStat.index}">
+                    <input type="hidden" name="x" th:value="${xStat.index}">
+
+                    <button type="submit" class="cell flag">🚩</button>
+
+                </form>
+
+                <!-- 開いたマス -->
+                <div th:if="${!board.isClosed(yStat.index, xStat.index) && !board.isFlag(yStat.index, xStat.index)}"
+                     class="cell opened"
+                     th:classappend="${board.isMineVisible(yStat.index, xStat.index)} ? ' mine' : ''">
+
+                    <span th:text="${board.getDisplayValue(yStat.index, xStat.index)}"></span>
+
+                </div>
+
             </td>
         </tr>
     </table>
-    <div th:if="${gameOver}">
-        <h2>💥　GAME OVER</h2>
-    </div>
-    <div th:if="${isClear}">
-        <h2>🎊  CLEAR!</h2>
-    </div>
+
+</div>
+
+<script src="/js/app.js"></script>
+
 </body>
 </html>

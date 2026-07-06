@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
@@ -32,7 +33,7 @@ public class MinesweeperController {
         return "index";
     }
 
-    @GetMapping("/open")
+    @PostMapping("/open")
     public String open(@RequestParam int y,
                        @RequestParam int x,
                        HttpSession session){
@@ -47,7 +48,7 @@ public class MinesweeperController {
         return "redirect:/";
     }
 
-    @GetMapping("/flag")
+    @PostMapping("/flag")
     public String flag(@RequestParam int y,
                        @RequestParam int x,
                        HttpSession session){

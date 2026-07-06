@@ -1,5 +1,7 @@
 package com.yattsun.minesweeperweb.domain;
 
+import lombok.Getter;
+
 import java.util.Random;
 
 public  class Board {
@@ -7,6 +9,7 @@ public  class Board {
     private final int[][] board;
     private final char[][] visible;
     private boolean initialized = false;
+    @Getter
     private boolean gameOver = false;
 
     public int getHeight() {
@@ -170,12 +173,44 @@ public  class Board {
         return true;
     }
 
-    public boolean isGameOver(){
-        return gameOver;
-    }
-
     public char[][] getVisibleBoard() {
         return visible;
     }
+
+    public boolean isClosed(int y, int x) {
+        return visible[y][x] == '□';
+    }
+
+    public boolean isFlag(int y, int x) {
+        return visible[y][x] == 'F';
+    }
+
+    public boolean isMineVisible(int y, int x) {
+        return visible[y][x] == '*';
+    }
+
+    public char getCell(int y, int x) {
+        return visible[y][x];
+    }
+
+    public boolean isOpened(int y, int x){
+        return !isClosed(y, x) && !isFlag(y, x);
+    }
+
+    public String getDisplayValue(int y, int x){
+
+        if(isClosed(y, x) || isFlag(y, x)){
+            return "";
+        }
+
+        if(isMineVisible(y, x)){
+            return "💣";
+        }
+
+        return visible[y][x] == '0'
+                ? ""
+                : String.valueOf(visible[y][x]);
+    }
+
 
 }
