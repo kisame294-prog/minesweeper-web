@@ -39,10 +39,16 @@ public class MinesweeperController {
                        HttpSession session){
 
         Board board = getBoard(session);
-        board.init(y,x);
 
-        if(!board.isGameOver()){
-            board.openBoard(y,x);
+        if(board.isClear() || board.isGameOver()){
+            return "redirect:/";
+        }
+
+        board.init(y,x);
+        board.openBoard(y,x);
+
+        if (board.isGameOver()){
+            board.showBombs();
         }
 
         return "redirect:/";
@@ -59,4 +65,13 @@ public class MinesweeperController {
         return "redirect:/";
     }
 
+    @PostMapping("/reset")
+    public String reset(HttpSession session){
+
+        Board board = new Board(9,9);
+
+        session.setAttribute("board",board);
+
+        return "redirect:/";
+    }
 }

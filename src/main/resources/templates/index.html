@@ -10,6 +10,40 @@
 
 <h2 class="title">MINESWEEPER</h2>
 
+<div class="result-overlay game-over" th:if="${gameOver}">
+    <div class="result-panel">
+        <h1>GAME OVER</h1>
+        <p>MISSION FAILED</p>
+        <form th:action="@{/reset}" method="post">
+            <button class="reset-btn">
+                RETRY
+            </button>
+        </form>
+    </div>
+</div>
+
+
+<div class="result-overlay clear" th:if="${isClear}">
+    <div class="result-panel">
+        <h1>CLEAR</h1>
+        <p>MISSION COMPLETE</p>
+        <form th:action="@{/reset}" method="post">
+            <button class="reset-btn">
+                NEXT GAME
+            </button>
+        </form>
+    </div>
+</div>
+
+<div class="toolbar">
+<!-- リセット -->
+    <form id="resetForm" th:action="@{/reset}" method="post">
+        <button type="submit" class="reset-btn">
+            RESET
+        </button>
+    </form>
+</div>
+
 <div class="board-frame">
 
     <table class="board">

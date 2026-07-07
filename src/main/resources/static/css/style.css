@@ -86,6 +86,88 @@ body{
     transition:.2s;
 }
 
+/*　ゲームオーバー　*/
+.result-overlay{
+
+    position:fixed;
+    inset:0;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background:rgba(0,0,0,.75);
+
+    z-index:100;
+
+    animation:fadeIn .5s;
+}
+
+
+.game-over .result-panel{
+
+    border:2px solid #ff3030;
+
+    box-shadow:
+            0 0 20px #ff3030,
+            0 0 50px #ff0000;
+
+    color:#ff3030;
+
+    animation:dangerPulse 1s infinite;
+}
+
+
+@keyframes dangerPulse{
+
+    0%{
+        transform:scale(1);
+    }
+
+    50%{
+        transform:scale(1.05);
+    }
+
+    100%{
+        transform:scale(1);
+    }
+
+}
+
+/* ゲームクリア　*/
+.clear .result-panel{
+
+    border:2px solid #00f5ff;
+
+    box-shadow:
+            0 0 20px #00f5ff,
+            0 0 60px #00f5ff;
+
+    color:#00f5ff;
+
+    animation:clearGlow 1.5s infinite;
+}
+
+
+@keyframes clearGlow{
+
+    0%{
+        box-shadow:
+                0 0 10px #00f5ff;
+    }
+
+    50%{
+        box-shadow:
+                0 0 50px #00f5ff;
+    }
+
+    100%{
+        box-shadow:
+                0 0 10px #00f5ff;
+    }
+
+}
+
 /* 未開 */
 
 .closed{
@@ -184,6 +266,23 @@ body{
     background:#332400;
 
     color:#FFD700;
+}
+
+/* リセットボタン  */
+.reset-btn {
+    margin: 20px auto;
+    display: block;
+    padding: 10px 20px;
+    background: #00f5ff;
+    border: none;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 6px;
+}
+
+.reset-btn:hover {
+    box-shadow: 0 0 15px #00f5ff;
 }
 
 /* 数字 */
