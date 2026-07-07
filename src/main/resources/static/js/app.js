@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
 
+    setupFlagEvents();
     // open / flag フォームを全部AJAX化
     document.querySelectorAll("form").forEach(form => {
 
@@ -20,8 +21,30 @@ document.addEventListener("DOMContentLoaded", () => {
             const doc = parser.parseFromString(html, "text/html");
 
             document.body.innerHTML = doc.body.innerHTML;
+
+            setupFlagEvents()
+
         });
-
     });
-
 });
+
+function setupFlagEvents() {
+
+    document.querySelectorAll(".closed, .flag").forEach(cell => {
+
+        cell.addEventListener("contextmenu", event => {
+
+            event.preventDefault();
+
+            const td = cell.closest("td");
+
+            const flagForm = td.querySelector(".hidden-flag-form");
+
+            if (flagForm) {
+                flagForm.submit();
+            }
+        });
+    });
+}
+
+

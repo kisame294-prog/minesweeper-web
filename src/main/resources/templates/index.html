@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html  lang="ja">
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
 <head>
     <meta charset="UTF-8">
     <title>マインスイーパー（Board準拠版）</title>
@@ -50,36 +50,47 @@
         <tr th:each="row, yStat : ${board.visibleBoard}">
             <td th:each="cell, xStat : ${row}">
 
-                <!-- 未開 -->
-                <form th:if="${cell == '□'}"
+                <!-- 閉じている -->
+                <form th:if="${board.isClosed(yStat.index, xStat.index)}"
                       th:action="@{/open}"
                       method="post">
 
                     <input type="hidden" name="y" th:value="${yStat.index}">
                     <input type="hidden" name="x" th:value="${xStat.index}">
 
-                    <button class="cell closed"></button>
+                    <button type="submit" class="cell closed"></button>
+
+                </form>
+
+                <form th:action="@{/flag}"
+                      method="post"
+                      class="hidden-flag-form">
+
+                    <input type="hidden" name="y" th:value="${yStat.index}">
+                    <input type="hidden" name="x" th:value="${xStat.index}">
 
                 </form>
 
                 <!-- フラグ -->
-                <form th:if="${cell == 'F'}"
+                <form th:if="${board.isFlag(yStat.index, xStat.index)}"
                       th:action="@{/flag}"
                       method="post">
 
                     <input type="hidden" name="y" th:value="${yStat.index}">
                     <input type="hidden" name="x" th:value="${xStat.index}">
 
-                    <button class="cell flag">🚩</button>
+                    <button type="submit" class="cell flag">
+                        🚩
+                    </button>
 
                 </form>
 
                 <!-- 開いたマス -->
-                <div th:if="${cell != '□' && cell != 'F'}"
+                <div th:if="${!board.isClosed(yStat.index, xStat.index) && !board.isFlag(yStat.index, xStat.index)}"
                      class="cell opened"
-                     th:classappend="${cell == '*'} ? ' mine' : ''">
+                     th:classappend="${board.isMineVisible(yStat.index, xStat.index)} ? ' mine' : ''">
 
-                    <span th:text="${cell == '0' ? '' : cell}"></span>
+                    <span th:text="${board.getDisplayValue(yStat.index, xStat.index)}"></span>
 
                 </div>
 

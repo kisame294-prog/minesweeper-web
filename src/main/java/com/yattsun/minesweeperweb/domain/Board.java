@@ -94,16 +94,6 @@ public  class Board {
         }
     }
 
-    //デバッグ用
-    public void printBoard() {
-        for (int[] row : board) {
-            for (int col : row) {
-                //System.out.print(col + " ");
-            }
-            //System.out.println();
-        }
-    }
-
     public void openBoard(int y, int x) {
         int value = board[y][x];
         //すでに開いているマスなら何もしない
@@ -132,16 +122,6 @@ public  class Board {
                     }
                 }
             }
-        }
-    }
-
-    //ユーザーから見た盤面
-    public void printVisible() {
-        for (int y = 0; y < board.length; y++) {
-            for (int x = 0; x < board[y].length; x++) {
-                //System.out.print(visible[y][x] + " ");
-            }
-            //System.out.println();
         }
     }
 
