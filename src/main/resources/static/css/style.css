@@ -273,6 +273,7 @@ body{
 }
 
 /* リセットボタン  */
+
 .reset-btn {
     margin: 20px auto;
     display: block;
@@ -291,13 +292,40 @@ body{
 
 /* 数字 */
 
-.opened span{
+.num-1 span {
+    color: #00F5FF;
+}
 
-    text-shadow:0 0 8px currentColor;
+.num-2 span {
+    color: #00FF85;
+}
 
+.num-3 span {
+    color: #FF4DFF;
+}
+
+.num-4 span {
+    color: #7D6BFF;
+}
+
+.num-5 span {
+    color: #FF8C00;
+}
+
+.num-6 span {
+    color: #00FFD5;
+}
+
+.num-7 span {
+    color: #FF3366;
+}
+
+.num-8 span {
+    color: #FFFFFF;
 }
 
 .opened span{
 
-    color:#00F5FF;
+    text-shadow:0 0 8px currentColor;
+
 }

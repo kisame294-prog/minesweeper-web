@@ -10,6 +10,7 @@
 
 <h2 class="title">MINESWEEPER</h2>
 
+<!-- ゲームオーバー -->
 <div class="result-overlay game-over" th:if="${gameOver}">
     <div class="result-panel">
         <h1>GAME OVER</h1>
@@ -22,7 +23,7 @@
     </div>
 </div>
 
-
+<!-- ゲームクリア -->
 <div class="result-overlay clear" th:if="${isClear}">
     <div class="result-panel">
         <h1>CLEAR</h1>
@@ -61,7 +62,7 @@
                     <button type="submit" class="cell closed"></button>
 
                 </form>
-
+                <!-- フラグ（隠してる） -->
                 <form th:action="@{/flag}"
                       method="post"
                       class="hidden-flag-form">
@@ -88,7 +89,7 @@
                 <!-- 開いたマス -->
                 <div th:if="${!board.isClosed(yStat.index, xStat.index) && !board.isFlag(yStat.index, xStat.index)}"
                      class="cell opened"
-                     th:classappend="${board.isMineVisible(yStat.index, xStat.index)} ? ' mine' : ''">
+                     th:classappend="${board.getCellClass(yStat.index, xStat.index)}">
 
                     <span th:text="${board.getDisplayValue(yStat.index, xStat.index)}"></span>
 

@@ -173,6 +173,20 @@ public  class Board {
         return visible[y][x];
     }
 
+    public String getCellClass(int y, int x){
+
+        char cell = visible[y][x];
+
+        if(cell == '*'){
+            return "mine";
+        }
+        if(cell >= '1' && cell <= '8'){
+            return "num-" + cell;
+        }
+
+        return "";
+    }
+
     public boolean isOpened(int y, int x){
         return !isClosed(y, x) && !isFlag(y, x);
     }
