@@ -3,24 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <title>難易度選択</title>
+    <link rel="stylesheet" href="/css/select.css">
 </head>
 <body>
-<form th:action="@{/start}" method="post">
-    <select name="difficulty">
-        <option value="EASY">
+<div class="container">
+    <h1>SELECT DIFFICULTY</h1>
+    <form th:action="@{/start}" method="post">
+        <label>
+            <input type="radio" name="difficulty" value="EASY">
             EASY
-        </option>
-        <option value="NORMAL">
-        NORMAL
-        </option>
-        <option value="HARD">
+        </label>
+
+        <label>
+            <input type="radio" name="difficulty" value="NORMAL">
+            NORMAL
+        </label>
+
+        <label>
+            <input type="radio" name="difficulty" value="HARD">
             HARD
-        </option>
-    </select>
-    <button type="submit">
-        START
-    </button>
-</form>
+        </label>
+
+        <button class="start-btn" type="submit">
+            START
+        </button>
+    </form>
+</div>
 
 </body>
 </html>

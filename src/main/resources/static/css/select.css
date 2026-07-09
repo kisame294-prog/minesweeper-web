@@ -1,0 +1,182 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap');
+body {
+
+    margin:0;
+
+    min-height:100vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:#05051a;
+
+    font-family:'Orbitron',sans-serif;
+    color:white;
+
+}
+
+
+.container {
+
+    width:420px;
+
+    padding:40px;
+
+    text-align:center;
+
+}
+
+/* 難易度選択エリア */
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+
+/* ラベル（難易度カード） */
+
+label {
+
+    width: 220px;
+
+    padding: 15px;
+
+    border: 2px solid #ff00ff;
+
+    color: #ff00ff;
+
+    font-size: 20px;
+
+    letter-spacing: 4px;
+
+    cursor: pointer;
+
+    text-align: center;
+
+
+    background: rgba(20, 0, 40, 0.7);
+
+
+    box-shadow:
+            0 0 10px rgba(255,0,255,0.6);
+
+
+    transition: 0.3s;
+}
+
+
+
+/* ラジオボタンは隠す */
+
+input[type="radio"] {
+
+    display:none;
+
+}
+
+
+
+/* ホバー */
+
+label:hover {
+
+    color:#00ffff;
+
+    border-color:#00ffff;
+
+
+    box-shadow:
+
+            0 0 15px #00ffff,
+
+            0 0 30px rgba(0,255,255,0.5);
+
+
+    transform: translateY(-3px);
+
+}
+
+
+
+/* 選択済み */
+
+label:has(input:checked) {
+
+    color:#00ffff;
+
+    border-color:#00ffff;
+
+    background:
+            rgba(0,255,255,0.15);
+
+
+    box-shadow:
+            0 0 15px #00ffff,
+            inset 0 0 20px rgba(0,255,255,0.3);
+
+}
+
+/* スタートボタン */
+
+.start-btn {
+
+    margin-top: 35px;
+
+    width: 220px;
+
+    padding: 16px;
+
+
+    background: rgba(0, 255, 255, 0.05);
+
+    color: #00ffff;
+
+    border: 2px solid #00ffff;
+
+
+    font-size: 22px;
+
+    font-weight: bold;
+
+    letter-spacing: 5px;
+
+
+    cursor: pointer;
+
+
+    box-shadow:
+            0 0 10px #00ffff,
+            inset 0 0 10px rgba(0,255,255,0.3);
+
+
+    transition: 0.3s;
+}
+
+
+.start-btn:hover {
+
+    background: #00ffff;
+
+    color: #05051a;
+
+
+    box-shadow:
+            0 0 20px #00ffff,
+            0 0 50px #00ffff;
+
+
+    transform: scale(1.05);
+}
+
+
+.start-btn:active {
+
+    transform: scale(0.95);
+}
+
