@@ -8,7 +8,7 @@ public  class Board {
 
     private final int[][] board;
     private final char[][] visible;
-    private int bombCount;
+    private final int bombCount;
     private boolean initialized = false;
     private long startTime;
     private long elapsedTime;
