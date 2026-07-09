@@ -1,6 +1,7 @@
 package com.yattsun.minesweeperweb.controller;
 
 import com.yattsun.minesweeperweb.domain.Board;
+import com.yattsun.minesweeperweb.service.ClearTimeService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +11,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class MinesweeperController {
+    private final ClearTimeService clearTimeService;
+
+    public MinesweeperController(ClearTimeService clearTimeService) {
+        this.clearTimeService = clearTimeService;
+    }
 
     private Board getBoard(HttpSession session){
         Board board = (Board) session.getAttribute("board");
@@ -30,6 +36,8 @@ public class MinesweeperController {
         model.addAttribute("gameOver", board.isGameOver());
         model.addAttribute("isClear",board.isClear());
         model.addAttribute("elapsedTime",board.getElapsedSeconds());
+        model.addAttribute("timerRunning",board.isTimerRunning());
+        model.addAttribute("formattedElapsedTime",board.getFormattedElapsedTime());
 
         return "index";
     }
@@ -50,6 +58,12 @@ public class MinesweeperController {
 
         if(board.isClear() || board.isGameOver()){
             board.stopTimer();
+
+            if(board.isClear()){
+                clearTimeService.saveClearTime(
+                        (int) board.getElapsedSeconds()
+                );
+            }
         }
 
         if (board.isGameOver()){

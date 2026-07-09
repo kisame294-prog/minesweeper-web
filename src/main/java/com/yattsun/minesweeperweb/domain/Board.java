@@ -11,6 +11,7 @@ public  class Board {
     private boolean initialized = false;
     private long startTime;
     private long elapsedTime;
+    @Getter
     private boolean timerRunning;
     @Getter
     private boolean gameOver = false;
@@ -111,11 +112,9 @@ public  class Board {
         }
     }
 
-    //タイマーの初期化
-    public void resetTimer(){
-        startTime = 0;
-        elapsedTime = 0;
-        timerRunning = false;
+    //タイマーを３桁表示
+    public String getFormattedElapsedTime(){
+        return String.format("%03d",getElapsedSeconds());
     }
 
     public void showBombs() {

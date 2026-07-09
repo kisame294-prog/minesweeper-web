@@ -73,12 +73,16 @@ function setupTimer() {
 
     let elapsedTime = Number(timerElement.dataset.time);
 
-    setInterval(() => {
+    const running = timerElement.dataset.running  === "true";
 
-        elapsedTime++;
+    if (running) {
+        setInterval(() => {
 
-        timerElement.textContent =
-            String(elapsedTime).padStart(3, "0");
+            elapsedTime++;
 
-    }, 1000);
+            timerElement.textContent =
+                String(elapsedTime).padStart(3, "0");
+
+        }, 1000);
+    }
 }

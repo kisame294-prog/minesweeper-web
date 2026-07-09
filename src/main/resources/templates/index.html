@@ -39,8 +39,10 @@
 <!-- タイマー -->
 <div class="timer">
     TIME :
-    <span id="timer" th:data-time="${elapsedTime}"
-          th:text="${elapsedTime}">
+    <span id="timer"
+          th:data-time="${elapsedTime}"
+          th:text="${formattedElapsedTime}"
+          th:data-running="${timerRunning}">
         000
     </span>
 </div>
