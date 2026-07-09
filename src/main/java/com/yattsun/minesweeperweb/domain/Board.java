@@ -8,6 +8,7 @@ public  class Board {
 
     private final int[][] board;
     private final char[][] visible;
+    private int bombCount;
     private boolean initialized = false;
     private long startTime;
     private long elapsedTime;
@@ -26,9 +27,11 @@ public  class Board {
         return board[0].length;
     }
 
-    public Board(int sizeY, int sizeX) {
+    public Board(int sizeY, int sizeX, int bombCount) {
         board = new int[sizeY][sizeX];
         visible = new char[sizeY][sizeX];
+
+        this.bombCount = bombCount;
 
         for (int y = 0; y < board.length; y++) {
             for (int x = 0; x < board[y].length; x++) {
@@ -86,7 +89,7 @@ public  class Board {
             return;
         }
 
-        putBombs(2,safeY,safeX);
+        putBombs(bombCount,safeY,safeX);
         calcBombs();
         initialized = true;
 

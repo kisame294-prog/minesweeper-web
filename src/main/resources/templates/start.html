@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>難易度選択</title>
+</head>
+<body>
+<form th:action="@{/start}" method="post">
+    <select name="difficulty">
+        <option value="EASY">
+            EASY
+        </option>
+        <option value="NORMAL">
+        NORMAL
+        </option>
+        <option value="HARD">
+            HARD
+        </option>
+    </select>
+    <button type="submit">
+        START
+    </button>
+</form>
+
+</body>
+</html>

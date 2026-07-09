@@ -1,6 +1,7 @@
 package com.yattsun.minesweeperweb.controller;
 
 import com.yattsun.minesweeperweb.domain.Board;
+import com.yattsun.minesweeperweb.domain.Difficulty;
 import com.yattsun.minesweeperweb.service.ClearTimeService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
@@ -20,9 +21,8 @@ public class MinesweeperController {
     private Board getBoard(HttpSession session){
         Board board = (Board) session.getAttribute("board");
 
-        if(board == null){
-            board = new Board(9,9);
-            session.setAttribute("board",board);
+        if(board == null) {
+           throw new IllegalStateException("Boardが存在しません");
         }
 
         return board;
@@ -30,7 +30,11 @@ public class MinesweeperController {
 
     @GetMapping("/")
     public String index(HttpSession session, Model model) {
-        Board board = getBoard(session);
+        Board board = (Board) session.getAttribute("board");
+
+        if(board == null) {
+            return "start";
+        }
 
         model.addAttribute("board", board);
         model.addAttribute("gameOver", board.isGameOver());
@@ -41,6 +45,22 @@ public class MinesweeperController {
 
         return "index";
     }
+
+    @PostMapping("/start")
+    public String start(@RequestParam Difficulty difficulty,
+                        HttpSession session) {
+
+        Board board = new  Board(
+                difficulty.getHeight(),
+                difficulty.getWidth(),
+                difficulty.getBombCount()
+        );
+        session.setAttribute("board",board);
+        session.setAttribute("difficulty",difficulty);
+
+        return "redirect:/";
+    }
+
 
     @PostMapping("/open")
     public String open(@RequestParam int y,
@@ -88,8 +108,18 @@ public class MinesweeperController {
 
     @PostMapping("/reset")
     public String reset(HttpSession session){
+        Difficulty difficulty =
+                (Difficulty) session.getAttribute("difficulty");
 
-        Board board = new Board(9,9);
+        if(difficulty == null) {
+            throw new IllegalStateException("Difficultyが存在しません");
+        }
+
+        Board board = new Board(
+                difficulty.getHeight(),
+                difficulty.getWidth(),
+                difficulty.getBombCount()
+        );
 
         session.setAttribute("board",board);
 
