@@ -12,6 +12,8 @@ public  class Board {
     private long startTime;
     private long elapsedTime;
     @Getter
+    private boolean clearTimeSaved;
+    @Getter
     private boolean timerRunning;
     @Getter
     private boolean gameOver = false;
@@ -84,7 +86,7 @@ public  class Board {
             return;
         }
 
-        putBombs(10,safeY,safeX);
+        putBombs(2,safeY,safeX);
         calcBombs();
         initialized = true;
 
@@ -115,6 +117,10 @@ public  class Board {
     //タイマーを３桁表示
     public String getFormattedElapsedTime(){
         return String.format("%03d",getElapsedSeconds());
+    }
+
+    public void markClearTimeSaved(){
+        clearTimeSaved = true;
     }
 
     public void showBombs() {

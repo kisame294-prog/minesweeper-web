@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>マインスイーパー（Board準拠版）</title>
     <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -28,6 +29,12 @@
     <div class="result-panel">
         <h1>CLEAR</h1>
         <p>MISSION COMPLETE</p>
+        <p class="clear-time">
+           TIME:
+            <span th:text="${formattedElapsedTime}">
+                000
+            </span>
+        </p>
         <form th:action="@{/reset}" method="post">
             <button class="reset-btn">
                 NEXT GAME

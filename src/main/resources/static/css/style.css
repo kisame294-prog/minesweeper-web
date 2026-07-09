@@ -147,8 +147,16 @@ body{
 
     animation:clearGlow 1.5s infinite;
 }
+.timer,
+.clear-time {
+    font-family: "Orbitron", sans-serif;
+}
 
-
+.clear-time span {
+    font-family: "Orbitron", sans-serif;
+    font-weight: 700;
+    letter-spacing: 5px;
+}
 @keyframes clearGlow{
 
     0%{
@@ -346,5 +354,16 @@ body{
     text-shadow:
             0 0 10px #00F5FF,
             0 0 20px #00F5FF;
+
+}
+
+
+.timer span {
+
+    font-family: "Orbitron", sans-serif;
+
+    font-weight:700;
+
+    letter-spacing:5px;
 
 }

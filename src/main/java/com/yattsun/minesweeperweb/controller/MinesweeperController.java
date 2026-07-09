@@ -56,13 +56,15 @@ public class MinesweeperController {
         board.init(y,x);
         board.openBoard(y,x);
 
-        if(board.isClear() || board.isGameOver()){
+        if(board.isGameOver() || board.isClear()) {
             board.stopTimer();
 
-            if(board.isClear()){
+            if (board.isClear() && !board.isClearTimeSaved()) {
+
                 clearTimeService.saveClearTime(
                         (int) board.getElapsedSeconds()
                 );
+                board.markClearTimeSaved();
             }
         }
 
