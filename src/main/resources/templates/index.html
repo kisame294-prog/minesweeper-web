@@ -36,6 +36,15 @@
     </div>
 </div>
 
+<!-- タイマー -->
+<div class="timer">
+    TIME :
+    <span id="timer" th:data-time="${elapsedTime}"
+          th:text="${elapsedTime}">
+        000
+    </span>
+</div>
+
 <div class="toolbar">
 <!-- リセット -->
     <form id="resetForm" th:action="@{/reset}" method="post">
@@ -101,7 +110,7 @@
 
 </div>
 
-<script src="/js/app.js"></script>
+<script th:src="@{/js/app.js}"></script>
 
 </body>
 </html>

@@ -9,6 +9,9 @@ public  class Board {
     private final int[][] board;
     private final char[][] visible;
     private boolean initialized = false;
+    private long startTime;
+    private long elapsedTime;
+    private boolean timerRunning;
     @Getter
     private boolean gameOver = false;
 
@@ -73,7 +76,8 @@ public  class Board {
             }
         }
     }
-    //初期化メソッド
+
+    //初期化メソッド,時間の計測開始
     public void init(int safeY, int safeX){
         if(initialized){
             return;
@@ -82,6 +86,36 @@ public  class Board {
         putBombs(10,safeY,safeX);
         calcBombs();
         initialized = true;
+
+        if(!timerRunning){
+            startTime = System.currentTimeMillis();
+            timerRunning = true;
+        }
+    }
+
+    //経過時間取得
+    public long getElapsedSeconds(){
+
+        if(!timerRunning){
+            return elapsedTime;
+        }
+
+        return (System.currentTimeMillis() - startTime) / 1000;
+    }
+
+    //計測終了
+    public void stopTimer(){
+        if(timerRunning){
+            elapsedTime = (System.currentTimeMillis() - startTime) / 1000;
+            timerRunning = false;
+        }
+    }
+
+    //タイマーの初期化
+    public void resetTimer(){
+        startTime = 0;
+        elapsedTime = 0;
+        timerRunning = false;
     }
 
     public void showBombs() {
@@ -173,6 +207,7 @@ public  class Board {
         return visible[y][x];
     }
 
+    //盤面の数字、記号を取得
     public String getCellClass(int y, int x){
 
         char cell = visible[y][x];

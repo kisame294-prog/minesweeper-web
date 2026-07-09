@@ -29,6 +29,7 @@ public class MinesweeperController {
         model.addAttribute("board", board);
         model.addAttribute("gameOver", board.isGameOver());
         model.addAttribute("isClear",board.isClear());
+        model.addAttribute("elapsedTime",board.getElapsedSeconds());
 
         return "index";
     }
@@ -46,6 +47,10 @@ public class MinesweeperController {
 
         board.init(y,x);
         board.openBoard(y,x);
+
+        if(board.isClear() || board.isGameOver()){
+            board.stopTimer();
+        }
 
         if (board.isGameOver()){
             board.showBombs();

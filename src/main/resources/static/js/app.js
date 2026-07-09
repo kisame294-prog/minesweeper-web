@@ -1,10 +1,21 @@
 document.addEventListener("DOMContentLoaded", () => {
 
     setupFlagEvents();
-    // open / flag フォームを全部AJAX化
+
+    setupAjax();
+
+    setupTimer();
+
+});
+
+
+// Ajax化
+function setupAjax() {
+
     document.querySelectorAll("form").forEach(form => {
 
         form.addEventListener("submit", async (e) => {
+
             e.preventDefault();
 
             const formData = new FormData(form);
@@ -14,7 +25,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 body: formData
             });
 
-            // 返ってきたHTMLでページ差し替え
             const html = await response.text();
 
             const parser = new DOMParser();
@@ -22,12 +32,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
             document.body.innerHTML = doc.body.innerHTML;
 
-            setupFlagEvents()
+            // 差し替え後に再設定
+            setupFlagEvents();
+            setupTimer();
 
         });
     });
-});
+}
 
+
+// 右クリック旗
 function setupFlagEvents() {
 
     document.querySelectorAll(".closed, .flag").forEach(cell => {
@@ -48,3 +62,23 @@ function setupFlagEvents() {
 }
 
 
+// タイマー
+function setupTimer() {
+
+    const timerElement = document.getElementById("timer");
+
+    if (!timerElement) {
+        return;
+    }
+
+    let elapsedTime = Number(timerElement.dataset.time);
+
+    setInterval(() => {
+
+        elapsedTime++;
+
+        timerElement.textContent =
+            String(elapsedTime).padStart(3, "0");
+
+    }, 1000);
+}
