@@ -12,7 +12,8 @@
 <h2 class="title">MINESWEEPER</h2>
 
 <!-- ゲームオーバー -->
-<div class="result-overlay game-over" th:if="${gameOver}">
+<div class="result-overlay game-over"
+     th:if="${gameOver}">
     <div class="result-panel">
         <h1>GAME OVER</h1>
         <p>MISSION FAILED</p>
@@ -25,7 +26,8 @@
 </div>
 
 <!-- ゲームクリア -->
-<div class="result-overlay clear" th:if="${isClear}">
+<div class="result-overlay clear"
+     th:if="${isClear}">
     <div class="result-panel">
         <h1>CLEAR</h1>
         <p>MISSION COMPLETE</p>

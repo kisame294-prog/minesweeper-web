@@ -1,388 +1,495 @@
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap');
 
-body{
+body {
 
-    margin:0;
-    background:
-            radial-gradient(circle at top,#1d2951,#070b16 70%);
+    margin: 0;
+    background: linear-gradient(
+            rgba(7, 11, 22, .45),
+            rgba(7, 11, 22, .65)
+    ),
+    url("../images/cyberpunk_rain_bg.png");
 
-    font-family:'Orbitron',sans-serif;
-    color:white;
+    font-family: 'Orbitron', sans-serif;
+    color: white;
 }
 
-.title{
+.title {
 
-    text-align:center;
-    margin:30px 0;
+    text-align: center;
+    margin: 30px 0;
 
-    font-size:40px;
+    font-size: 40px;
 
-    color:#00F5FF;
+    color: #00F5FF;
 
-    letter-spacing:4px;
+    letter-spacing: 4px;
 
-    text-shadow:
-            0 0 10px #00F5FF,
-            0 0 20px #00F5FF,
-            0 0 40px #7d3cff;
-
-}
-
-.board-frame{
-
-    width:fit-content;
-
-    margin:auto;
-
-    padding:20px;
-
-    border-radius:15px;
-
-    background:rgba(255,255,255,.05);
-
-    backdrop-filter:blur(12px);
-
-    border:1px solid rgba(0,245,255,.2);
-
-    box-shadow:
-            0 0 25px rgba(0,245,255,.2);
+    text-shadow: 0 0 10px #00F5FF,
+    0 0 20px #00F5FF,
+    0 0 40px #7d3cff;
 
 }
 
-.board{
+.board-frame {
 
-    border-collapse:separate;
+    width: fit-content;
+    margin: auto;
+    padding: 20px;
+    border-radius: 15px;
+    background: rgba(12, 18, 35, .35);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(0, 245, 255, .25);
+    box-shadow: 0 0 30px rgba(0, 245, 255, .18),
+    inset 0 0 20px rgba(255, 255, 255, .03);
 
-    border-spacing:4px;
 }
 
-.board td{
-
-    padding:0;
+.board {
+    border-collapse: separate;
+    border-spacing: 1px;
+    background: rgba(255, 255, 255, .02);
 }
 
-.cell{
+.board td {
+    padding: 0;
+}
 
-    width:42px;
-
-    height:42px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    font-size:18px;
-
-    font-weight:bold;
-
-    border:none;
-
-    cursor:pointer;
-
-    border-radius:8px;
-
-    transition:.2s;
+.cell {
+    width: 42px;
+    height: 42px;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: .2s;
 }
 
 /*　ゲームオーバー　*/
-.result-overlay{
-
-    position:fixed;
-    inset:0;
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    background:rgba(0,0,0,.75);
-
-    z-index:100;
-
-    animation:fadeIn .5s;
+.result-overlay {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, .85);
+    z-index: 100;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .3s ease;
 }
 
-
-.game-over .result-panel{
-
-    border:2px solid #ff3030;
-
-    box-shadow:
-            0 0 20px #ff3030,
-            0 0 50px #ff0000;
-
-    color:#ff3030;
-
-    animation:dangerPulse 1s infinite;
+.result-overlay::after {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%,
+                                rgba(0, 0, 0, 0.25) 50%),
+                linear-gradient(90deg,
+                                rgba(255, 0, 0, 0.06),
+                                rgba(0, 255, 0, 0.02),
+                                rgba(0, 0, 255, 0.06));
+    background-size: 100% 4px, 6px 100%;
+    z-index: 101;
+    pointer-events: none;
 }
 
+.result-overlay.game-over {
+    opacity: 1;
+    pointer-events: auto;
+}
 
-@keyframes dangerPulse{
+.game-over .result-panel {
+    position: relative;
+    padding: 30px 40px;
+    background: rgba(10, 15, 15, 0.95);
+    border: 2px solid #ff3030;
+    box-shadow: 0 0 25px #ff3030, inset 0 0 15px rgba(255, 48, 48, 0.3);
+    color: #ff3030;
+    text-align: center;
+    font-family: 'Orbitron', 'Courier New', sans-serif;
+    letter-spacing: 2px;
+    animation: dangerPulse 2s infinite ease-in-out, cyberGlitch .4s ease-out;
+}
 
-    0%{
-        transform:scale(1);
+.game-over h1 {
+    position: relative;
+    font-size: 3rem;
+    text-transform: uppercase;
+    text-shadow: 0 0 10px #ff3030;
+}
+
+.game-over h1::before,
+.game-over h1::after {
+    content: "GAME OVER";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+}
+
+.game-over h1::before {
+    color: #00f5ff;
+    text-shadow: -2px 0 #00f5ff;
+    clip-path: inset(40% 0 61% 0);
+    animation: glitchTop .4s linear infinite alternate-reverse;
+}
+
+.game-over h1::after {
+    color: #ff3030;
+    text-shadow: 2px 0 #ff3030;
+    clip-path: inset(25% 0 58% 0);
+    animation: glitchBottom .4s linear infinite;
+}
+
+@keyframes glitchTop {
+    0% { transform: translate(2px, -2px); }
+    100% { transform: translate(-2px, 2px); }
+}
+@keyframes glitchBottom {
+    0% { transform: translate(-2px, 2px); }
+    100% { transform: translate(1px, -1px); }
+}
+
+.game-over p {
+    font-size: 1.2rem;
+    margin: 0 0 25px 0;
+    font-weight: bold;
+    color: #ff6666;
+}
+
+@keyframes dangerPulse {
+    0%, 100% { transform: scale(1); box-shadow: 0 0 25px #ff3030; }
+    50% { transform: scale(1.02); box-shadow: 0 0 40px #ff0000; }
+}
+
+@keyframes cyberGlitch {
+    0% {
+        transform: scale(0.9) skewX(-15deg);
+        opacity: 0;
+        filter: hue-rotate(90deg) blur(1px);
     }
-
-    50%{
-        transform:scale(1.05);
+    15% {
+        transform: scale(1.05) skewX(10deg);
+        opacity: 0.8;
     }
-
-    100%{
-        transform:scale(1);
+    30% {
+        transform: scale(0.95) skewX(-10deg) translateX(-5px);
+        filter: none;
     }
-
+    45% {
+        transform: scale(1.02) skewX(5deg) translateX(5px);
+    }
+    60% {
+        transform: scale(0.98) skewX(-2deg);
+    }
+    75% {
+        transform: scale(1.01) skewX(0deg);
+    }
+    100% {
+        transform: scale(1) skewX(0deg);
+        opacity: 1;
+    }
 }
 
 /* ゲームクリア　*/
-.clear .result-panel{
-
-    border:2px solid #00f5ff;
-
-    box-shadow:
-            0 0 20px #00f5ff,
-            0 0 60px #00f5ff;
-
-    color:#00f5ff;
-
-    animation:clearGlow 1.5s infinite;
-}
-.timer,
-.clear-time {
-    font-family: "Orbitron", sans-serif;
+.clear .result-panel {
+    position: relative;
+    padding: 30px 40px;
+    background: rgba(10, 20, 25, 0.95);
+    border: 2px solid #00f5ff;
+    color: #00f5ff;
+    text-align: center;
+    overflow: hidden;
+    font-family: 'Orbitron', 'Courier New', sans-serif;
+    letter-spacing: 2px;
+    animation:
+            clearGlance .5s cubic-bezier(0.16, 1, 0.3, 1) forwards,
+            clearGlow 2.5s infinite ease-in-out;
 }
 
-.clear-time span {
-    font-family: "Orbitron", sans-serif;
-    font-weight: 700;
-    letter-spacing: 5px;
+.result-overlay.clear {
+    opacity: 1;
+    pointer-events: auto;
 }
-@keyframes clearGlow{
 
-    0%{
-        box-shadow:
-                0 0 10px #00f5ff;
+.clear h1 {
+    position: relative;
+    font-size: 3.5rem;
+    margin: 0 0 5px 0;
+    font-weight: 900;
+    text-transform: uppercase;
+    text-shadow: 0 0 15px #00f5ff, 0 0 30px rgba(0, 245, 255, 0.5);
+}
+
+.clear p {
+    font-size: 1.1rem;
+    margin: 0 0 15px 0;
+    font-weight: bold;
+    color: #b3f9ff;
+    letter-spacing: 4px;
+}
+
+.clear .clear-time {
+    font-size: 1.3rem;
+    margin-bottom: 25px;
+    color: #ffffff;
+    text-shadow: 0 0 8px rgba(0, 245, 255, 0.8);
+}
+
+.clear .result-panel::before {
+    content: "";
+    position: absolute;
+    top: -100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+            to bottom,
+            transparent,
+            rgba(0, 245, 255, 0.05) 85%,
+            rgba(0, 245, 255, 0.4) 99%,
+            #00f5ff 100%
+    );
+    animation: scanLine 3s infinite linear;
+    pointer-events: none;
+}
+
+@keyframes clearGlow {
+    0%, 100% {
+        box-shadow: 0 0 20px #00f5ff, inset 0 0 15px rgba(0, 245, 255, 0.2);
     }
-
-    50%{
-        box-shadow:
-                0 0 50px #00f5ff;
+    50% {
+        box-shadow: 0 0 40px #00f5ff, 0 0 70px rgba(0, 245, 255, 0.4), inset 0 0 25px rgba(0, 245, 255, 0.4);
     }
+}
 
-    100%{
-        box-shadow:
-                0 0 10px #00f5ff;
+
+@keyframes clearGlance {
+    0% {
+        transform: scale(0.8);
+        opacity: 0;
+        filter: brightness(3) blur(2px);
     }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+        filter: brightness(1) blur(0);
+    }
+}
 
+@keyframes scanLine {
+    0% { top: -100%; }
+    100% { top: 100%; }
 }
 
 /* 未開 */
-
-.closed{
-
-    background:
-            linear-gradient(145deg,#1c2338,#0f1627);
-
-    color:white;
-
-    box-shadow:
-            inset 0 0 10px rgba(0,245,255,.05);
+.closed {
+    background: linear-gradient(
+            145deg,
+            rgba(28, 35, 56, .80),
+            rgba(15, 22, 39, .75)
+    );
+    border: 1px solid rgba(0, 245, 255, 0.15);
+    box-shadow: inset 0 0 10px rgba(0, 245, 255, .05);
 }
 
-.closed:hover{
-
-    transform:translateY(-2px);
-
-    box-shadow:
-            0 0 12px #00F5FF;
+.closed:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 12px #00F5FF;
 }
 
-.closed:active{
-
-    transform:scale(.95);
+.closed:active {
+    transform: scale(.95);
 }
 
 /* 開いたセル */
-
-.opened{
-
-    background:#101827;
-
-    border:1px solid #1d9fff;
-
-    animation:openCell .2s;
-
+.opened {
+    transform: scale(.98);
+    background: rgba(110, 180, 255, .15);
+    border: 1px solid rgba(255,255,255, .12);
+    backdrop-filter: blur(10px);
+    box-shadow:
+            inset 0 0 10px rgba(0,245,255,.25);
+    animation: openCell .2s;
 }
 
-@keyframes openCell{
-
-    from{
-
-        transform:scale(.6);
-
-        opacity:0;
-
+@keyframes openCell {
+    from {
+        transform: scale(.6);
+        opacity: 0;
     }
-
-    to{
-
-        transform:scale(1);
-
-        opacity:1;
-
+    to {
+        transform: scale(1);
+        opacity: 1;
     }
-
 }
 
 /* 爆弾 */
-
-.mine{
-
-    background:#5b0000;
-
-    color:#ff4040;
-
-    animation:explode .35s;
+.mine {
+    background: radial-gradient(
+            circle,
+            rgba(180, 40, 40, .8),
+            rgba(70, 0, 0, .95)
+    );
+    animation: explode .35s;
+    box-shadow:
+            0 0 15px rgba(255,60,60,.7),
+            inset 0 0 12px rgba(255,100,100,.2);
 }
 
-@keyframes explode{
+.cell-icon {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: drop-shadow(0 0 4px rgba(0, 255, 255, .8));
+    transition: .2s;
+}
 
-    0%{
+.mine .cell-icon {
+    filter:
+            drop-shadow(0 0 8px #ff4040)
+            drop-shadow(0 0 18px #ff2020);
+}
 
-        transform:scale(.7);
-
+@keyframes explode {
+    0% {
+        transform: scale(.3) rotate(-20deg);
+        opacity: 0;
     }
-
-    60%{
-
-        transform:scale(1.2);
-
+    40% {
+        transform: scale(1.35) rotate(10deg);
     }
-
-    100%{
-
-        transform:scale(1);
-
+    70% {
+        transform: scale(.92);
     }
-
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
 }
 
 /* フラグ */
+.flag {
+    padding: 0;
+    background: linear-gradient(
+            145deg,
+            rgba(40, 50, 78, .88),
+            rgba(24, 34, 56, .82)
+    );
+    border: 1px solid rgba(0, 245, 255, .25);
+    box-shadow:
+            inset 0 0 10px rgba(0,245,255,.12),
+            0 0 8px rgba(0,245,255,.15);
+}
 
-.flag{
-
-    background:#332400;
-
-    color:#FFD700;
+.flag:hover {
+    transform: translateY(-2px);
+    box-shadow:
+            0 0 16px rgba(0,245,255,.45),
+            inset 0 0 12px rgba(255,255,255,.08);
 }
 
 .hidden-flag-form {
-    display:none;
+    display: none;
 }
 
-.cell-icon{
-    width:90%;
-    height:90%;
-    object-fit:contain;
-    display:block;
-
-    filter: drop-shadow(0 0 4px rgba(0,255,255,.8));
-
-    transition:.2s;
-}
-
-.mine .cell-icon{
-    filter: drop-shadow(0 0 6px #ff4040);
-}
-
-.flag .cell-icon{
-    filter: drop-shadow(0 0 6px #00ffff);
+.flag .cell-icon {
+    filter:
+            drop-shadow(0 0 4px #ffd700)
+            drop-shadow(0 0 8px #00ffff);
 }
 
 /* リセットボタン  */
-
 .reset-btn {
     margin: 20px auto;
     display: block;
-    padding: 10px 20px;
-    background: #00f5ff;
-    border: none;
-    color: black;
+    padding: 10px 24px;
+    background: transparent;
+    border: 2px solid #00f5ff;
+    color: #00f5ff;
     font-weight: bold;
+    font-family: 'Orbitron', 'Courier New', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
     cursor: pointer;
-    border-radius: 6px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    box-shadow:
+            inset 0 0 8px
+            rgba(0, 245, 255, 0.2),
+            0 0 8px
+            rgba(0, 245, 255, 0.2);
 }
 
 .reset-btn:hover {
-    box-shadow: 0 0 15px #00f5ff;
+    background: #00f5ff;
+    color: #0d1117;
+    box-shadow: 0 0 25px #00f5ff;
+    transform: translateY(-2px);
+}
+
+.reset-btn:active {
+    transform: translateY(0);
 }
 
 /* 数字 */
-
 .num-1 span {
     color: #00F5FF;
 }
-
 .num-2 span {
     color: #00FF85;
 }
-
 .num-3 span {
     color: #FF4DFF;
 }
-
 .num-4 span {
     color: #7D6BFF;
 }
-
 .num-5 span {
     color: #FF8C00;
 }
-
 .num-6 span {
     color: #00FFD5;
 }
-
 .num-7 span {
     color: #FF3366;
 }
-
 .num-8 span {
     color: #FFFFFF;
 }
 
-.opened span{
+.opened span {
 
-    text-shadow:0 0 8px currentColor;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000,
+    -1px 1px 0 #000, 1px 1px 0 #000,
+    0 0 6px currentColor,
+    0 0 12px currentColor;
 
 }
 
 /* タイマー */
 .timer {
-
-    text-align:center;
-
-    margin-bottom:20px;
-
-    font-size:24px;
-
-    letter-spacing:3px;
-
-    color:#00F5FF;
-
-    text-shadow:
-            0 0 10px #00F5FF,
-            0 0 20px #00F5FF;
-
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    letter-spacing: 3px;
+    color: #00F5FF;
+    text-shadow: 0 0 10px #00F5FF,
+    0 0 20px #00F5FF;
 }
 
 
 .timer span {
-
     font-family: "Orbitron", sans-serif;
-
-    font-weight:700;
-
-    letter-spacing:5px;
-
+    font-weight: 700;
+    letter-spacing: 5px;
 }
