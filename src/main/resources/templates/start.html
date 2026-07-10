@@ -7,28 +7,35 @@
 </head>
 <body>
 <div class="container">
-    <h1 data-text="SELECT DIFFICULTY">SELECT DIFFICULTY</h1>
+
+    <div class="logo-wrapper">
+        <div class="cyber-logo" data-text="MINESWEEPER">MINESWEEPER</div>
+        <div class="cyber-sub">SELECT DIFFICULTY_</div>
+    </div>
+
     <form th:action="@{/start}" method="post">
         <label>
             <input type="radio" name="difficulty" value="EASY">
-            EASY
+            <span class="diff-name">EASY</span>
+            <span class="diff-info">9 × 9 GRID / 10 MINES</span>
         </label>
 
         <label>
             <input type="radio" name="difficulty" value="NORMAL">
-            NORMAL
+            <span class="diff-name">NORMAL</span>
+            <span class="diff-info">16 × 16 GRID / 40 MINES</span>
         </label>
 
         <label>
             <input type="radio" name="difficulty" value="HARD">
-            HARD
+            <span class="diff-name">HARD</span>
+            <span class="diff-info">30 × 16 GRID / 99 MINES</span>
         </label>
 
         <button class="start-btn" type="submit">
-            START
+            GAME START ?
         </button>
     </form>
 </div>
-
 </body>
 </html>

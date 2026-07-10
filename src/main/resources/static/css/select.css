@@ -6,7 +6,6 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    /* 💡 背景：サイバーネオン街の闇夜（わずかに紫と青の光が奥から漏れているイメージ） */
     background:
             radial-gradient(circle at 10% 20%, rgba(255, 0, 255, 0.08) 0%, transparent 40%),
             radial-gradient(circle at 90% 80%, rgba(0, 255, 255, 0.08) 0%, transparent 40%),
@@ -17,7 +16,6 @@ body {
     position: relative;
 }
 
-/* 💡 画面全体に薄く走査線（CRTフィルター）をかけてサイバー感を統一 */
 body::after {
     content: " ";
     display: block;
@@ -29,50 +27,60 @@ body::after {
     pointer-events: none;
 }
 
+/* 💡 ロゴに合わせて横幅を少しワイドに（420px -> 550px） */
 .container {
-    width: 420px;
+    width: 550px;
     padding: 40px;
     text-align: center;
     background: rgba(5, 5, 20, 0.6);
     border-radius: 12px;
-    backdrop-filter: blur(8px); /* 背後の光をボカす */
+    backdrop-filter: blur(8px);
     border: 1px solid rgba(255, 0, 255, 0.1);
     box-shadow: 0 0 40px rgba(0, 0, 0, 0.8);
     z-index: 2;
 }
 
-/* 💡 タイトル：常時ジワジワと色分離バグが起きるエフェクト */
-h1 {
-    font-size: 24px;
-    font-weight: 900;
-    letter-spacing: 5px;
-    color: #fff;
-    text-shadow: 0 0 10px rgba(255, 0, 255, 0.8);
-    margin-bottom: 40px;
+/* ═══════════════════════════════════════
+   🔥 Cyberpunk 2077 & 攻殻風 超巨大ロゴ
+   ═══════════════════════════════════════ */
+.logo-wrapper {
+    margin-bottom: 45px;
     position: relative;
 }
-h1::before, h1::after {
-    content: attr(data-text);
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: transparent;
-}
-h1::before {
-    color: #00ffff;
-    text-shadow: -1px 0 #00ffff;
-    clip-path: inset(30% 0 60% 0);
-    animation: titleGlitch 2s infinite linear alternate-reverse;
-}
-h1::after {
-    color: #ff00ff;
-    text-shadow: 1px 0 #ff00ff;
-    clip-path: inset(55% 0 20% 0);
-    animation: titleGlitch 1.5s infinite linear alternate;
+
+.cyber-logo {
+    font-size: 52px;            /* バカでかいサイズ */
+    font-weight: 900;
+    letter-spacing: -1px;       /* あえて文字間を詰めて塊感を出す（サイバーパンク2077風） */
+    color: #fff;
+    text-transform: uppercase;
+    transform: skewX(-12deg);   /* 全体を左から右へ激しく傾斜させる（超重要） */
+    text-shadow:
+            -3px -3px 0 #00ffff,    /* シアンのズレ */
+            3px  3px 0 #ff00ff;    /* マゼンタのズレ */
+    position: relative;
+    display: inline-block;
 }
 
-@keyframes titleGlitch {
-    0% { transform: translate(1px, -1px) skewX(-3deg); }
-    100% { transform: translate(-1px, 1px) skewX(3deg); }
+/* 攻殻機動隊っぽい、文字を横切るデジタルスキャン線（H1の下線風） */
+.cyber-logo::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: -5%;
+    width: 110%;
+    height: 4px;
+    background: #00ffff;
+    box-shadow: 0 0 10px #00ffff;
+}
+
+.cyber-sub {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 6px;
+    color: #00ffff;
+    margin-top: 12px;
+    text-shadow: 0 0 8px rgba(0, 255, 255, 0.6);
 }
 
 /* 難易度選択エリア */
@@ -80,56 +88,75 @@ form {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 24px;
+    gap: 20px;
 }
 
-/* ラベル（ネオンゲート・カード） */
+/* ラベル（難易度カード） */
 label {
     position: relative;
-    width: 240px;
-    padding: 16px;
+    width: 320px; /* 情報が増えたので少し幅広に */
+    padding: 14px 20px;
     border: 2px solid #ff00ff;
-    color: #ff00ff;
-    font-size: 18px;
-    font-weight: 700;
-    letter-spacing: 6px;
-    cursor: pointer;
-    text-align: center;
     background: rgba(15, 0, 30, 0.7);
-    box-shadow: 0 0 15px rgba(255, 0, 255, 0.4), inset 0 0 10px rgba(255, 0, 255, 0.2);
+    box-shadow: 0 0 15px rgba(255, 0, 255, 0.3);
     border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px; /* タイトルと盤面情報の隙間 */
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* ラジオボタンは隠す */
-input[type="radio"] {
-    display: none;
+/* 難易度の文字（EASYなど） */
+.diff-name {
+    color: #ff00ff;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 5px;
+    transition: color 0.3s;
+    display: block;
 }
 
-/* ホバー：シアンの光がじわっと侵食 */
+/* 💡 追加：小さな盤面ステータス */
+.diff-info {
+    display: block;
+    color: rgba(255, 255, 255, 0.5); /* 普段は少し薄暗く */
+    font-size: 11px;
+    letter-spacing: 2px;
+    font-weight: 500;
+    margin-top: 4px;
+    transition: color 0.3s;
+}
+
+/* ホバー */
 label:hover {
-    color: #00ffff;
     border-color: #00ffff;
     background: rgba(0, 40, 50, 0.5);
-    box-shadow:
-            0 0 20px #00ffff,
-            inset 0 0 15px rgba(0, 255, 255, 0.4);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
     transform: translateY(-2px);
 }
+label:hover .diff-name { color: #00ffff; }
+label:hover .diff-info { color: rgba(0, 255, 255, 0.8); }
 
-/* 選択済み：エネルギー充填（1pxのシャープな内張り発光を追加） */
+/* 選択済み */
 label:has(input:checked) {
-    color: #00ffff;
     border-color: #00ffff;
     background: rgba(0, 255, 255, 0.15);
-    text-shadow: 0 0 8px #00ffff;
     box-shadow:
             0 0 25px #00ffff,
-            inset 0 0 20px rgba(0, 255, 255, 0.5);
+            inset 0 0 20px rgba(0, 255, 255, 0.4);
     transform: scale(1.03);
 }
+label:has(input:checked) .diff-name {
+    color: #00ffff;
+    text-shadow: 0 0 8px #00ffff;
+}
+label:has(input:checked) .diff-info {
+    color: #ffffff; /* 選択されるとクッキリ白く光る */
+}
 
-/* 選択されたカードの左右に小さなネオンマークを出現させる演出 */
+/* 選択時の横の「▶」マーク（位置を微調整） */
 label:has(input:checked)::before,
 label:has(input:checked)::after {
     content: "▶";
@@ -141,18 +168,18 @@ label:has(input:checked)::after {
     text-shadow: 0 0 5px #00ffff;
     animation: arrowPulse 0.8s infinite alternate;
 }
-label:has(input:checked)::before { left: 15px; }
-label:has(input:checked)::after { right: 15px; transform: translateY(-50%) rotate(180deg); }
+label:has(input:checked)::before { left: 20px; }
+label:has(input:checked)::after { right: 20px; transform: translateY(-50%) rotate(180deg); }
 
 @keyframes arrowPulse {
     0% { opacity: 0.3; }
     100% { opacity: 1; }
 }
 
-/* スタートボタン：街の奥へ踏み出す特大のネオンサイン */
+/* スタートボタン */
 .start-btn {
     margin-top: 25px;
-    width: 276px; /* ラベルより少し幅広にしてどっしり構える */
+    width: 364px;
     padding: 18px;
     background: transparent;
     color: #00ffff;
@@ -169,7 +196,7 @@ label:has(input:checked)::after { right: 15px; transform: translateY(-50%) rotat
 
 .start-btn:hover {
     background: #00ffff;
-    color: #03030c; /* 背景の闇色で文字をくり抜く */
+    color: #03030c;
     box-shadow:
             0 0 30px #00ffff,
             0 0 60px rgba(0, 255, 255, 0.6);
