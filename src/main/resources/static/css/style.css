@@ -280,6 +280,25 @@ body{
     display:none;
 }
 
+.cell-icon{
+    width:90%;
+    height:90%;
+    object-fit:contain;
+    display:block;
+
+    filter: drop-shadow(0 0 4px rgba(0,255,255,.8));
+
+    transition:.2s;
+}
+
+.mine .cell-icon{
+    filter: drop-shadow(0 0 6px #ff4040);
+}
+
+.flag .cell-icon{
+    filter: drop-shadow(0 0 6px #00ffff);
+}
+
 /* リセットボタン  */
 
 .reset-btn {

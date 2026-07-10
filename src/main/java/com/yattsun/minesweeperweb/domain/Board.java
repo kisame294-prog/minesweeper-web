@@ -241,7 +241,7 @@ public  class Board {
         }
 
         if(isMineVisible(y, x)){
-            return "💣";
+            return "";
         }
 
         return visible[y][x] == '0'
