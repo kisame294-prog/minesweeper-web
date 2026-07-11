@@ -63,7 +63,7 @@ function setupTimer() {
         }, 1000);
     }
 }
-
+//ゲーム終了画面のエフェクト
 function setupResultEffects() {
     const overPanel = document.querySelector('.game-over .result-panel');
     const overH1 = document.querySelector('.game-over h1');
@@ -83,6 +83,7 @@ function setupResultEffects() {
     }
 }
 
+//ｼﾞｼﾞｼﾞと文字がブレる用に
 function runHackerText(element, targetText) {
     const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%-=+*";
     let iterations = 0;

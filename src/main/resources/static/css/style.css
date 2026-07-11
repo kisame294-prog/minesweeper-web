@@ -1,37 +1,28 @@
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap');
 
 body {
-
     margin: 0;
     background: linear-gradient(
             rgba(7, 11, 22, .45),
             rgba(7, 11, 22, .65)
     ),
     url("../images/cyberpunk_rain_bg.png");
-
     font-family: 'Orbitron', sans-serif;
     color: white;
 }
 
 .title {
-
     text-align: center;
     margin: 30px 0;
-
     font-size: 40px;
-
     color: #00F5FF;
-
     letter-spacing: 4px;
-
     text-shadow: 0 0 10px #00F5FF,
     0 0 20px #00F5FF,
     0 0 40px #7d3cff;
-
 }
 
 .board-frame {
-
     width: fit-content;
     margin: auto;
     padding: 20px;
@@ -41,7 +32,6 @@ body {
     border: 1px solid rgba(0, 245, 255, .25);
     box-shadow: 0 0 30px rgba(0, 245, 255, .18),
     inset 0 0 20px rgba(255, 255, 255, .03);
-
 }
 
 .board {
@@ -486,7 +476,6 @@ body {
     text-shadow: 0 0 10px #00F5FF,
     0 0 20px #00F5FF;
 }
-
 
 .timer span {
     font-family: "Orbitron", sans-serif;

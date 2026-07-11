@@ -27,7 +27,6 @@ body::after {
     pointer-events: none;
 }
 
-/* 💡 ロゴに合わせて横幅を少しワイドに（420px -> 550px） */
 .container {
     width: 550px;
     padding: 40px;
@@ -40,29 +39,25 @@ body::after {
     z-index: 2;
 }
 
-/* ═══════════════════════════════════════
-   🔥 Cyberpunk 2077 & 攻殻風 超巨大ロゴ
-   ═══════════════════════════════════════ */
 .logo-wrapper {
     margin-bottom: 45px;
     position: relative;
 }
 
 .cyber-logo {
-    font-size: 52px;            /* バカでかいサイズ */
+    font-size: 52px;
     font-weight: 900;
-    letter-spacing: -1px;       /* あえて文字間を詰めて塊感を出す（サイバーパンク2077風） */
+    letter-spacing: -1px;
     color: #fff;
     text-transform: uppercase;
-    transform: skewX(-12deg);   /* 全体を左から右へ激しく傾斜させる（超重要） */
+    transform: skewX(-12deg);
     text-shadow:
-            -3px -3px 0 #00ffff,    /* シアンのズレ */
-            3px  3px 0 #ff00ff;    /* マゼンタのズレ */
-    position: relative;
+            -3px -3px 0 #00ffff,
+            3px  3px 0 #ff00ff;
     display: inline-block;
 }
 
-/* 攻殻機動隊っぽい、文字を横切るデジタルスキャン線（H1の下線風） */
+/* 文字を横切るデジタルスキャン線（H1の下線風） */
 .cyber-logo::after {
     content: "";
     position: absolute;
@@ -94,7 +89,7 @@ form {
 /* ラベル（難易度カード） */
 label {
     position: relative;
-    width: 320px; /* 情報が増えたので少し幅広に */
+    width: 320px;
     padding: 14px 20px;
     border: 2px solid #ff00ff;
     background: rgba(15, 0, 30, 0.7);
@@ -104,7 +99,7 @@ label {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 4px; /* タイトルと盤面情報の隙間 */
+    gap: 4px;
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -118,10 +113,10 @@ label {
     display: block;
 }
 
-/* 💡 追加：小さな盤面ステータス */
+/* 小さな盤面ステータス */
 .diff-info {
     display: block;
-    color: rgba(255, 255, 255, 0.5); /* 普段は少し薄暗く */
+    color: rgba(255, 255, 255, 0.5);
     font-size: 11px;
     letter-spacing: 2px;
     font-weight: 500;
@@ -153,10 +148,10 @@ label:has(input:checked) .diff-name {
     text-shadow: 0 0 8px #00ffff;
 }
 label:has(input:checked) .diff-info {
-    color: #ffffff; /* 選択されるとクッキリ白く光る */
+    color: #ffffff;
 }
 
-/* 選択時の横の「▶」マーク（位置を微調整） */
+/* 選択時の横の「▶」マーク */
 label:has(input:checked)::before,
 label:has(input:checked)::after {
     content: "▶";
@@ -174,6 +169,26 @@ label:has(input:checked)::after { right: 20px; transform: translateY(-50%) rotat
 @keyframes arrowPulse {
     0% { opacity: 0.3; }
     100% { opacity: 1; }
+}
+
+/* ベストタイム表示のスタイル */
+.best-time {
+    display: block;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 11px;
+    letter-spacing: 2px;
+    font-weight: 500;
+    margin-top: 2px;
+    transition: all 0.3s;
+}
+
+label:hover .best-time {
+    color: rgba(0, 255, 255, 0.6);
+}
+
+label:has(input:checked) .best-time {
+    color: #ffffff;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
 }
 
 /* スタートボタン */

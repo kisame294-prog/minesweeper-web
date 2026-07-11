@@ -18,22 +18,34 @@
             <input type="radio" name="difficulty" value="EASY">
             <span class="diff-name">EASY</span>
             <span class="diff-info">9 × 9 GRID / 10 MINES</span>
+            <span class="best-time">
+                BEST TIME :
+                  <span th:text="${easyBest != null ? easyBest + ' SECONDS' : '--'}"></span>
+            </span>
         </label>
 
         <label>
             <input type="radio" name="difficulty" value="NORMAL">
             <span class="diff-name">NORMAL</span>
             <span class="diff-info">16 × 16 GRID / 40 MINES</span>
+            <span class="best-time">
+                BEST TIME :
+                  <span th:text="${normalBest != null ? normalBest + ' SECONDS' : '--'}"></span>
+            </span>
         </label>
 
         <label>
             <input type="radio" name="difficulty" value="HARD">
             <span class="diff-name">HARD</span>
             <span class="diff-info">30 × 16 GRID / 99 MINES</span>
+            <span class="best-time">
+                BEST TIME :
+                  <span th:text="${hardBest != null ? hardBest + ' SECONDS' : '--'}"></span>
+            </span>
         </label>
 
         <button class="start-btn" type="submit">
-            GAME START ?
+            GAME START
         </button>
     </form>
 </div>

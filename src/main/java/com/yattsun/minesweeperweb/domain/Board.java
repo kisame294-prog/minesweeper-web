@@ -9,9 +9,9 @@ public  class Board {
     private final int[][] board;
     private final char[][] visible;
     private final int bombCount;
-    private boolean initialized = false;
     private long startTime;
     private long elapsedTime;
+    private boolean initialized = false;
     @Getter
     private boolean clearTimeSaved;
     @Getter

@@ -22,7 +22,7 @@ public class MinesweeperController {
         Board board = (Board) session.getAttribute("board");
 
         if(board == null) {
-           throw new IllegalStateException("Boardが存在しません");
+           throw new IllegalStateException("盤面が存在しません");
         }
 
         return board;
@@ -33,6 +33,10 @@ public class MinesweeperController {
         Board board = (Board) session.getAttribute("board");
 
         if(board == null) {
+            model.addAttribute("easyBest",clearTimeService.getBestTime(Difficulty.EASY));
+            model.addAttribute("normalBest",clearTimeService.getBestTime(Difficulty.NORMAL));
+            model.addAttribute("hardBest",clearTimeService.getBestTime(Difficulty.HARD));
+
             return "start";
         }
 
@@ -80,8 +84,10 @@ public class MinesweeperController {
             board.stopTimer();
 
             if (board.isClear() && !board.isClearTimeSaved()) {
-
+                Difficulty difficulty
+                        = (Difficulty) session.getAttribute("difficulty");
                 clearTimeService.saveClearTime(
+                        difficulty,
                         (int) board.getElapsedSeconds()
                 );
                 board.markClearTimeSaved();
@@ -112,7 +118,7 @@ public class MinesweeperController {
                 (Difficulty) session.getAttribute("difficulty");
 
         if(difficulty == null) {
-            throw new IllegalStateException("Difficultyが存在しません");
+            throw new IllegalStateException("難易度が存在しません");
         }
 
         Board board = new Board(
@@ -122,6 +128,14 @@ public class MinesweeperController {
         );
 
         session.setAttribute("board",board);
+
+        return "redirect:/";
+    }
+
+    @PostMapping("/select")
+    public String select(HttpSession session){
+        session.removeAttribute("difficulty");
+        session.removeAttribute("board");
 
         return "redirect:/";
     }
