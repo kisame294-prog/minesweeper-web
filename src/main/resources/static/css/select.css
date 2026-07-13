@@ -28,7 +28,9 @@ body::after {
 }
 
 .container {
-    width: 550px;
+    width: 100%;
+    max-width: 550px;
+    box-sizing: border-box;
     padding: 40px;
     text-align: center;
     background: rgba(5, 5, 20, 0.6);
@@ -86,10 +88,17 @@ form {
     gap: 20px;
 }
 
+/* 追加：HTML側で足したラジオボタン自体を画面から見えなくする */
+.cyber-radio {
+    display: none;
+}
+
 /* ラベル（難易度カード） */
 label {
     position: relative;
-    width: 320px;
+    width: 100%;
+    max-width: 360px;
+    box-sizing: border-box;
     padding: 14px 20px;
     border: 2px solid #ff00ff;
     background: rgba(15, 0, 30, 0.7);
@@ -194,7 +203,9 @@ label:has(input:checked) .best-time {
 /* スタートボタン */
 .start-btn {
     margin-top: 25px;
-    width: 364px;
+    width: 100%;
+    max-width: 360px;
+    box-sizing: border-box;
     padding: 18px;
     background: transparent;
     color: #00ffff;

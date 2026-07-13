@@ -15,7 +15,7 @@
 
     <form th:action="@{/start}" method="post">
         <label>
-            <input type="radio" name="difficulty" value="EASY">
+            <input type="radio" name="difficulty" value="EASY" class="cyber-radio" required>
             <span class="diff-name">EASY</span>
             <span class="diff-info">9 × 9 GRID / 10 MINES</span>
             <span class="best-time">
@@ -25,7 +25,7 @@
         </label>
 
         <label>
-            <input type="radio" name="difficulty" value="NORMAL">
+            <input type="radio" name="difficulty" value="NORMAL" class="cyber-radio">
             <span class="diff-name">NORMAL</span>
             <span class="diff-info">16 × 16 GRID / 40 MINES</span>
             <span class="best-time">
@@ -35,7 +35,7 @@
         </label>
 
         <label>
-            <input type="radio" name="difficulty" value="HARD">
+            <input type="radio" name="difficulty" value="HARD" class="cyber-radio">
             <span class="diff-name">HARD</span>
             <span class="diff-info">30 × 16 GRID / 99 MINES</span>
             <span class="best-time">

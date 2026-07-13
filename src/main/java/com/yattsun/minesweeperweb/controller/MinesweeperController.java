@@ -51,8 +51,14 @@ public class MinesweeperController {
     }
 
     @PostMapping("/start")
-    public String start(@RequestParam Difficulty difficulty,
-                        HttpSession session) {
+    public String start(
+            @RequestParam(required = false)
+            Difficulty difficulty,
+            HttpSession session) {
+
+        if(difficulty == null){
+            return "redirect:/";
+        }
 
         Board board = new  Board(
                 difficulty.getHeight(),
