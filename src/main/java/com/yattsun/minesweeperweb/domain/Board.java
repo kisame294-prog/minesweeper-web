@@ -4,7 +4,7 @@ import lombok.Getter;
 
 import java.util.Random;
 
-public  class Board {
+public class Board {
 
     private final int[][] board;
     private final char[][] visible;
@@ -84,25 +84,25 @@ public  class Board {
     }
 
     //初期化メソッド,時間の計測開始
-    public void init(int safeY, int safeX){
-        if(initialized){
+    public void init(int safeY, int safeX) {
+        if (initialized) {
             return;
         }
 
-        putBombs(bombCount,safeY,safeX);
+        putBombs(bombCount, safeY, safeX);
         calcBombs();
         initialized = true;
 
-        if(!timerRunning){
+        if (!timerRunning) {
             startTime = System.currentTimeMillis();
             timerRunning = true;
         }
     }
 
     //経過時間取得
-    public long getElapsedSeconds(){
+    public long getElapsedSeconds() {
 
-        if(!timerRunning){
+        if (!timerRunning) {
             return elapsedTime;
         }
 
@@ -110,19 +110,19 @@ public  class Board {
     }
 
     //計測終了
-    public void stopTimer(){
-        if(timerRunning){
+    public void stopTimer() {
+        if (timerRunning) {
             elapsedTime = (System.currentTimeMillis() - startTime) / 1000;
             timerRunning = false;
         }
     }
 
     //タイマーを３桁表示
-    public String getFormattedElapsedTime(){
-        return String.format("%03d",getElapsedSeconds());
+    public String getFormattedElapsedTime() {
+        return String.format("%03d", getElapsedSeconds());
     }
 
-    public void markClearTimeSaved(){
+    public void markClearTimeSaved() {
         clearTimeSaved = true;
     }
 
@@ -212,31 +212,31 @@ public  class Board {
     }
 
     //盤面の数字、記号を取得
-    public String getCellClass(int y, int x){
+    public String getCellClass(int y, int x) {
 
         char cell = visible[y][x];
 
-        if(cell == '*'){
+        if (cell == '*') {
             return "mine";
         }
-        if(cell >= '1' && cell <= '8'){
+        if (cell >= '1' && cell <= '8') {
             return "num-" + cell;
         }
 
         return "";
     }
 
-    public boolean isOpened(int y, int x){
+    public boolean isOpened(int y, int x) {
         return !isClosed(y, x) && !isFlag(y, x);
     }
 
-    public String getDisplayValue(int y, int x){
+    public String getDisplayValue(int y, int x) {
 
-        if(isClosed(y, x) || isFlag(y, x)){
+        if (isClosed(y, x) || isFlag(y, x)) {
             return "";
         }
 
-        if(isMineVisible(y, x)){
+        if (isMineVisible(y, x)) {
             return "";
         }
 

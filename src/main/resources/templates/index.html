@@ -37,7 +37,7 @@
         <h1>CLEAR</h1>
         <p>MISSION COMPLETE</p>
         <p class="clear-time">
-           TIME:
+            TIME:
             <span th:text="${formattedElapsedTime}">
                 000
             </span>
@@ -67,7 +67,7 @@
 </div>
 
 <div class="toolbar">
-<!-- リセット -->
+    <!-- リセット -->
     <form id="resetForm" th:action="@{/reset}" method="post">
         <button type="submit" class="reset-btn">
             RESET

@@ -12,6 +12,7 @@ public class ClearTimeService {
     public ClearTimeService(ClearTimeRepository clearTimeRepository) {
         this.clearTimeRepository = clearTimeRepository;
     }
+
     //クリアタイムをリポジトリに保存
     public void saveClearTime(Difficulty difficulty, int seconds) {
         ClearTime clearTime = new ClearTime();
@@ -24,7 +25,7 @@ public class ClearTimeService {
     public Integer getBestTime(Difficulty difficulty) {
         return clearTimeRepository
                 .findFirstByDifficultyOrderByClearTimeAsc(difficulty)   //ソートして昇順にした、一番上のものを取得
-                .map(ClearTime :: getClearTime)     //クリアタイムだけ所得
+                .map(ClearTime::getClearTime)     //クリアタイムだけ所得
                 .orElse(null);      //何もなければnull
     }
 }

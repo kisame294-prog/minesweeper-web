@@ -18,11 +18,12 @@ public class MinesweeperController {
         this.clearTimeService = clearTimeService;
     }
 
-    private Board getBoard(HttpSession session){
+    //ゲームの状態をセッションで管理
+    private Board getBoard(HttpSession session) {
         Board board = (Board) session.getAttribute("board");
 
-        if(board == null) {
-           throw new IllegalStateException("盤面が存在しません");
+        if (board == null) {
+            throw new IllegalStateException("盤面が存在しません");
         }
 
         return board;
@@ -32,20 +33,20 @@ public class MinesweeperController {
     public String index(HttpSession session, Model model) {
         Board board = (Board) session.getAttribute("board");
 
-        if(board == null) {
-            model.addAttribute("easyBest",clearTimeService.getBestTime(Difficulty.EASY));
-            model.addAttribute("normalBest",clearTimeService.getBestTime(Difficulty.NORMAL));
-            model.addAttribute("hardBest",clearTimeService.getBestTime(Difficulty.HARD));
+        if (board == null) {
+            model.addAttribute("easyBest", clearTimeService.getBestTime(Difficulty.EASY));
+            model.addAttribute("normalBest", clearTimeService.getBestTime(Difficulty.NORMAL));
+            model.addAttribute("hardBest", clearTimeService.getBestTime(Difficulty.HARD));
 
             return "start";
         }
 
         model.addAttribute("board", board);
         model.addAttribute("gameOver", board.isGameOver());
-        model.addAttribute("isClear",board.isClear());
-        model.addAttribute("elapsedTime",board.getElapsedSeconds());
-        model.addAttribute("timerRunning",board.isTimerRunning());
-        model.addAttribute("formattedElapsedTime",board.getFormattedElapsedTime());
+        model.addAttribute("isClear", board.isClear());
+        model.addAttribute("elapsedTime", board.getElapsedSeconds());
+        model.addAttribute("timerRunning", board.isTimerRunning());
+        model.addAttribute("formattedElapsedTime", board.getFormattedElapsedTime());
 
         return "index";
     }
@@ -56,17 +57,17 @@ public class MinesweeperController {
             Difficulty difficulty,
             HttpSession session) {
 
-        if(difficulty == null){
+        if (difficulty == null) {
             return "redirect:/";
         }
 
-        Board board = new  Board(
+        Board board = new Board(
                 difficulty.getHeight(),
                 difficulty.getWidth(),
                 difficulty.getBombCount()
         );
-        session.setAttribute("board",board);
-        session.setAttribute("difficulty",difficulty);
+        session.setAttribute("board", board);
+        session.setAttribute("difficulty", difficulty);
 
         return "redirect:/";
     }
@@ -75,18 +76,18 @@ public class MinesweeperController {
     @PostMapping("/open")
     public String open(@RequestParam int y,
                        @RequestParam int x,
-                       HttpSession session){
+                       HttpSession session) {
 
         Board board = getBoard(session);
 
-        if(board.isClear() || board.isGameOver()){
+        if (board.isClear() || board.isGameOver()) {
             return "redirect:/";
         }
 
-        board.init(y,x);
-        board.openBoard(y,x);
+        board.init(y, x);
+        board.openBoard(y, x);
 
-        if(board.isGameOver() || board.isClear()) {
+        if (board.isGameOver() || board.isClear()) {
             board.stopTimer();
 
             if (board.isClear() && !board.isClearTimeSaved()) {
@@ -100,17 +101,18 @@ public class MinesweeperController {
             }
         }
 
-        if (board.isGameOver()){
+        if (board.isGameOver()) {
             board.showBombs();
         }
 
         return "redirect:/";
     }
 
+    //フラグを置く
     @PostMapping("/flag")
     public String flag(@RequestParam int y,
                        @RequestParam int x,
-                       HttpSession session){
+                       HttpSession session) {
 
         Board board = getBoard(session);
         board.toggleFlag(y, x);
@@ -118,12 +120,13 @@ public class MinesweeperController {
         return "redirect:/";
     }
 
+    //ゲームのリセット
     @PostMapping("/reset")
-    public String reset(HttpSession session){
+    public String reset(HttpSession session) {
         Difficulty difficulty =
                 (Difficulty) session.getAttribute("difficulty");
 
-        if(difficulty == null) {
+        if (difficulty == null) {
             throw new IllegalStateException("難易度が存在しません");
         }
 
@@ -133,13 +136,14 @@ public class MinesweeperController {
                 difficulty.getBombCount()
         );
 
-        session.setAttribute("board",board);
+        session.setAttribute("board", board);
 
         return "redirect:/";
     }
 
+    //難易度を選ぶ時、ゲームの状態を取り除く
     @PostMapping("/select")
-    public String select(HttpSession session){
+    public String select(HttpSession session) {
         session.removeAttribute("difficulty");
         session.removeAttribute("board");
 

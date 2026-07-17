@@ -6,10 +6,9 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background:
-            radial-gradient(circle at 10% 20%, rgba(255, 0, 255, 0.08) 0%, transparent 40%),
-            radial-gradient(circle at 90% 80%, rgba(0, 255, 255, 0.08) 0%, transparent 40%),
-            #03030c;
+    background: radial-gradient(circle at 10% 20%, rgba(255, 0, 255, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(0, 255, 255, 0.08) 0%, transparent 40%),
+    #03030c;
     font-family: 'Orbitron', sans-serif;
     color: white;
     overflow: hidden;
@@ -53,9 +52,8 @@ body::after {
     color: #fff;
     text-transform: uppercase;
     transform: skewX(-12deg);
-    text-shadow:
-            -3px -3px 0 #00ffff,
-            3px  3px 0 #ff00ff;
+    text-shadow: -3px -3px 0 #00ffff,
+    3px 3px 0 #ff00ff;
     display: inline-block;
 }
 
@@ -140,22 +138,29 @@ label:hover {
     box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
     transform: translateY(-2px);
 }
-label:hover .diff-name { color: #00ffff; }
-label:hover .diff-info { color: rgba(0, 255, 255, 0.8); }
+
+label:hover .diff-name {
+    color: #00ffff;
+}
+
+label:hover .diff-info {
+    color: rgba(0, 255, 255, 0.8);
+}
 
 /* 選択済み */
 label:has(input:checked) {
     border-color: #00ffff;
     background: rgba(0, 255, 255, 0.15);
-    box-shadow:
-            0 0 25px #00ffff,
-            inset 0 0 20px rgba(0, 255, 255, 0.4);
+    box-shadow: 0 0 25px #00ffff,
+    inset 0 0 20px rgba(0, 255, 255, 0.4);
     transform: scale(1.03);
 }
+
 label:has(input:checked) .diff-name {
     color: #00ffff;
     text-shadow: 0 0 8px #00ffff;
 }
+
 label:has(input:checked) .diff-info {
     color: #ffffff;
 }
@@ -172,12 +177,23 @@ label:has(input:checked)::after {
     text-shadow: 0 0 5px #00ffff;
     animation: arrowPulse 0.8s infinite alternate;
 }
-label:has(input:checked)::before { left: 20px; }
-label:has(input:checked)::after { right: 20px; transform: translateY(-50%) rotate(180deg); }
+
+label:has(input:checked)::before {
+    left: 20px;
+}
+
+label:has(input:checked)::after {
+    right: 20px;
+    transform: translateY(-50%) rotate(180deg);
+}
 
 @keyframes arrowPulse {
-    0% { opacity: 0.3; }
-    100% { opacity: 1; }
+    0% {
+        opacity: 0.3;
+    }
+    100% {
+        opacity: 1;
+    }
 }
 
 /* ベストタイム表示のスタイル */
@@ -223,9 +239,8 @@ label:has(input:checked) .best-time {
 .start-btn:hover {
     background: #00ffff;
     color: #03030c;
-    box-shadow:
-            0 0 30px #00ffff,
-            0 0 60px rgba(0, 255, 255, 0.6);
+    box-shadow: 0 0 30px #00ffff,
+    0 0 60px rgba(0, 255, 255, 0.6);
     transform: scale(1.05);
 }
 

@@ -4,9 +4,9 @@ import lombok.Getter;
 
 @Getter
 public enum Difficulty {
-    EASY(9,9,10),
-    NORMAL(16,16,48),
-    HARD(16,30,99);
+    EASY(9, 9, 10),
+    NORMAL(16, 16, 48),
+    HARD(16, 30, 99);
 
     private final int height;
     private final int width;
