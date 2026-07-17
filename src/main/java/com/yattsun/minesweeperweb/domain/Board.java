@@ -167,10 +167,6 @@ public  class Board {
         }
     }
 
-    public char getVisible(int y, int x) {
-        return visible[y][x];
-    }
-
     //フラグの入れ替え
     public void toggleFlag(int y, int x) {
         if (visible[y][x] == '□') {
